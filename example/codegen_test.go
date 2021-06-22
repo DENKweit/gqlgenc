@@ -311,4 +311,5 @@ func TestGenExtraType(t *testing.T) {
 
 	// This should fail compiling if the type is missing
 	_ = client.SomeExtraType{}
+	_ = client.SomeExtraTypeChild{}
 }
