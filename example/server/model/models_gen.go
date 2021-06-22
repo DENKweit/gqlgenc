@@ -50,6 +50,10 @@ type SomeExtraType struct {
 }
 
 type SomeExtraTypeChild struct {
+	Child *SomeExtraTypeChildChild `json:"child"`
+}
+
+type SomeExtraTypeChildChild struct {
 	ID string `json:"id"`
 }
 
