@@ -305,3 +305,10 @@ func TestMutationUploadFilesMap(t *testing.T) {
 
 	assert.Equal(t, l, res.UploadFilesMap.Somefile.Size)
 }
+
+func TestGenExtraType(t *testing.T) {
+	t.Parallel()
+
+	// This should fail compiling if the type is missing
+	_ = client.SomeExtraType{}
+}
