@@ -3,11 +3,12 @@ package clientgen
 import (
 	"bytes"
 	"fmt"
+	"go/types"
+
 	"github.com/99designs/gqlgen/codegen/templates"
 	"github.com/infiotinc/gqlgenc/config"
 	"github.com/vektah/gqlparser/v2/ast"
 	"github.com/vektah/gqlparser/v2/formatter"
-	"go/types"
 )
 
 type Source struct {

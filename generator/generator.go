@@ -5,8 +5,9 @@ package generator
 import (
 	"context"
 	"fmt"
-	"github.com/99designs/gqlgen/plugin/modelgen"
+
 	"github.com/infiotinc/gqlgenc/config"
+	"github.com/infiotinc/gqlgenc/modelgen"
 
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/plugin"

@@ -2,11 +2,12 @@ package clientgen
 
 import (
 	"fmt"
+	"go/types"
+	"strings"
+
 	"github.com/99designs/gqlgen/codegen/config"
 	"github.com/99designs/gqlgen/codegen/templates"
 	"github.com/vektah/gqlparser/v2/ast"
-	"go/types"
-	"strings"
 )
 
 type Argument struct {
