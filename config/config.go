@@ -186,14 +186,6 @@ func LoadConfig(filename string) (*Config, error) {
 		models = cfg.Models
 	}
 
-	cfg.Models.Add("OptionalString", "github.com/DENKweit/gqlgenc/modelgen.OptionalString")
-	cfg.Models.Add("OptionalInt", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt")
-	cfg.Models.Add("OptionalInt32", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt32")
-	cfg.Models.Add("OptionalInt64", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt64")
-	cfg.Models.Add("OptionalFloat32", "github.com/DENKweit/gqlgenc/modelgen.OptionalFloat32")
-	cfg.Models.Add("OptionalFloat64", "github.com/DENKweit/gqlgenc/modelgen.OptionalFloat64")
-	cfg.Models.Add("OptionalBool", "github.com/DENKweit/gqlgenc/modelgen.OptionalBool")
-
 	sources := []*ast.Source{}
 
 	for _, filename := range cfg.SchemaFilename {

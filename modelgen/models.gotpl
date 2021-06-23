@@ -6,6 +6,7 @@
 {{ reserveImport "sync"  }}
 {{ reserveImport "errors"  }}
 {{ reserveImport "bytes"  }}
+{{ reserveImport "encoding/json"  }}
 
 {{ reserveImport "github.com/vektah/gqlparser/v2" }}
 {{ reserveImport "github.com/vektah/gqlparser/v2/ast" }}
@@ -29,6 +30,12 @@
 			{{ $field.Name|go }} {{$field.Type | ref}} `{{$field.Tag}}`
 		{{- end }}
 	}
+
+	{{- if .IsOptional }}
+	func (m *{{ .Name|go }}) MarshalJSON() ([]byte, error) {
+		return json.Marshal(m.Value)
+	}
+	{{- end }}
 
 	{{- range $iface := .Implements }}
 		func ({{ $model.Name|go }}) Is{{ $iface|go }}() {}

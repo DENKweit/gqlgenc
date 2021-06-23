@@ -35,6 +35,7 @@ type Object struct {
 	Name        string
 	Fields      []*Field
 	Implements  []string
+	IsOptional  bool
 }
 
 type Field struct {
@@ -164,33 +165,26 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 					switch typ.(type) {
 					case *types.Pointer:
 						tag = `json:"` + field.Name + `,omitempty"`
-						var err error
-						switch typ.String() {
-						case "*string":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalString"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*int":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalInt"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*int32":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalInt32"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*int64":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalInt64"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*float32":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalFloat32"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*float64":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalFloat64"].Model[0])
-							typ = types.NewPointer(typ)
-						case "*bool":
-							typ, err = binder.FindTypeFromName(cfg.Models["OptionalBool"].Model[0])
-							typ = types.NewPointer(typ)
+						optionalTypeName := fmt.Sprintf("Optional%s", field.Type.Name())
+						optionalTypeValueType := typ
+						typ = types.NewPointer(types.NewNamed(
+							types.NewTypeName(0, cfg.Model.Pkg(), templates.ToGo(optionalTypeName), nil),
+							types.NewStruct(nil, nil),
+							nil,
+						))
+						it := &Object{
+							Name:        optionalTypeName,
+							Description: field.Description,
+							Fields: []*Field{{
+								Name:        "Value",
+								Description: "",
+								Type:        optionalTypeValueType,
+								Tag:         `json:"-"`,
+							}},
+							IsOptional: true,
 						}
-						if err != nil {
-							return err
-						}
+
+						b.Models = append(b.Models, it)
 					}
 				}
 
