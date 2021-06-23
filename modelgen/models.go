@@ -79,6 +79,8 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 		PackageName: cfg.Model.Package,
 	}
 
+	knownOptionalTypes := map[string]bool{}
+
 	for _, schemaType := range cfg.Schema.Types {
 		if cfg.Models.UserDefined(schemaType.Name) {
 			continue
@@ -164,27 +166,31 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 				if schemaType.Kind == ast.InputObject {
 					switch typ.(type) {
 					case *types.Pointer:
-						tag = `json:"` + field.Name + `,omitempty"`
 						optionalTypeName := fmt.Sprintf("Optional%s", field.Type.Name())
+						tag = `json:"` + field.Name + `,omitempty"`
 						optionalTypeValueType := typ
 						typ = types.NewPointer(types.NewNamed(
 							types.NewTypeName(0, cfg.Model.Pkg(), templates.ToGo(optionalTypeName), nil),
 							types.NewStruct(nil, nil),
 							nil,
 						))
-						it := &Object{
-							Name:        optionalTypeName,
-							Description: field.Description,
-							Fields: []*Field{{
-								Name:        "Value",
-								Description: "",
-								Type:        optionalTypeValueType,
-								Tag:         `json:"-"`,
-							}},
-							IsOptional: true,
-						}
+						if _, ok := knownOptionalTypes[optionalTypeName]; !ok {
 
-						b.Models = append(b.Models, it)
+							it := &Object{
+								Name:        optionalTypeName,
+								Description: field.Description,
+								Fields: []*Field{{
+									Name:        "Value",
+									Description: "",
+									Type:        optionalTypeValueType,
+									Tag:         `json:"-"`,
+								}},
+								IsOptional: true,
+							}
+
+							b.Models = append(b.Models, it)
+							knownOptionalTypes[optionalTypeName] = true
+						}
 					}
 				}
 
