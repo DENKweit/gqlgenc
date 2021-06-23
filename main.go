@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/99designs/gqlgen/api"
-	"github.com/infiotinc/gqlgenc/clientgen"
-	"github.com/infiotinc/gqlgenc/config"
-	"github.com/infiotinc/gqlgenc/generator"
+	"github.com/DENKweit/gqlgenc/clientgen"
+	"github.com/DENKweit/gqlgenc/config"
+	"github.com/DENKweit/gqlgenc/generator"
 	"os"
 )
 

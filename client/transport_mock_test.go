@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/infiotinc/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/client/transport"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

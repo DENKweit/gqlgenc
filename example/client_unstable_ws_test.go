@@ -3,8 +3,8 @@ package example
 import (
 	"context"
 	"fmt"
-	"github.com/infiotinc/gqlgenc/client"
-	"github.com/infiotinc/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/client"
+	"github.com/DENKweit/gqlgenc/client/transport"
 	"net/http/httptest"
 	"nhooyr.io/websocket"
 	"testing"

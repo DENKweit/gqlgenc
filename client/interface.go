@@ -1,11 +1,11 @@
 package client
 
 import (
-	"github.com/infiotinc/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/client/transport"
 )
 
 type (
-	Extension interface{
+	Extension interface {
 		ExtensionName() string
 	}
 
@@ -15,4 +15,3 @@ type (
 		AroundRequest(req transport.Request, next RequestHandler) transport.Response
 	}
 )
-

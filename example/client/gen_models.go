@@ -5,7 +5,7 @@ package client
 import (
 	"time"
 
-	"github.com/infiotinc/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/client/transport"
 )
 
 type Book interface {

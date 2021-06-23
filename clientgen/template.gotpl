@@ -10,8 +10,8 @@
 	{{ reserveImport "path" }}
 	{{ reserveImport "time" }}
 
-	{{ reserveImport "github.com/infiotinc/gqlgenc/client" }}
-	{{ reserveImport "github.com/infiotinc/gqlgenc/client/transport" }}
+	{{ reserveImport "github.com/DENKweit/gqlgenc/client" }}
+	{{ reserveImport "github.com/DENKweit/gqlgenc/client/transport" }}
 
 	type Client struct {
 	    Client *client.Client

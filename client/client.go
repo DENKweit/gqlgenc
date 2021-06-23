@@ -3,7 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/infiotinc/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/client/transport"
 )
 
 type extensions struct {
@@ -20,7 +20,7 @@ func (es *extensions) RunAroundRequest(req transport.Request, h RequestHandler) 
 	run := h
 
 	for _, _e := range es.aroundRequest {
-		e := _e // Local ref
+		e := _e     // Local ref
 		next := run // Local ref
 		run = func(req transport.Request) transport.Response {
 			return e.AroundRequest(req, next)

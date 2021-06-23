@@ -12,9 +12,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/infiotinc/gqlgenc/client"
-	"github.com/infiotinc/gqlgenc/client/transport"
-	"github.com/infiotinc/gqlgenc/introspection"
+	"github.com/DENKweit/gqlgenc/client"
+	"github.com/DENKweit/gqlgenc/client/transport"
+	"github.com/DENKweit/gqlgenc/introspection"
 
 	"github.com/99designs/gqlgen/codegen/config"
 	"github.com/vektah/gqlparser/v2"
@@ -186,13 +186,13 @@ func LoadConfig(filename string) (*Config, error) {
 		models = cfg.Models
 	}
 
-	cfg.Models.Add("OptionalString", "github.com/infiotinc/gqlgenc/modelgen.OptionalString")
-	cfg.Models.Add("OptionalInt", "github.com/infiotinc/gqlgenc/modelgen.OptionalInt")
-	cfg.Models.Add("OptionalInt32", "github.com/infiotinc/gqlgenc/modelgen.OptionalInt32")
-	cfg.Models.Add("OptionalInt64", "github.com/infiotinc/gqlgenc/modelgen.OptionalInt64")
-	cfg.Models.Add("OptionalFloat32", "github.com/infiotinc/gqlgenc/modelgen.OptionalFloat32")
-	cfg.Models.Add("OptionalFloat64", "github.com/infiotinc/gqlgenc/modelgen.OptionalFloat64")
-	cfg.Models.Add("OptionalBool", "github.com/infiotinc/gqlgenc/modelgen.OptionalBool")
+	cfg.Models.Add("OptionalString", "github.com/DENKweit/gqlgenc/modelgen.OptionalString")
+	cfg.Models.Add("OptionalInt", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt")
+	cfg.Models.Add("OptionalInt32", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt32")
+	cfg.Models.Add("OptionalInt64", "github.com/DENKweit/gqlgenc/modelgen.OptionalInt64")
+	cfg.Models.Add("OptionalFloat32", "github.com/DENKweit/gqlgenc/modelgen.OptionalFloat32")
+	cfg.Models.Add("OptionalFloat64", "github.com/DENKweit/gqlgenc/modelgen.OptionalFloat64")
+	cfg.Models.Add("OptionalBool", "github.com/DENKweit/gqlgenc/modelgen.OptionalBool")
 
 	sources := []*ast.Source{}
 

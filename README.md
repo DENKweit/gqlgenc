@@ -9,7 +9,7 @@
 | https://github.com/shurcooL/graphql         | ❌      | ❌            |❌          |
 | https://github.com/Yamashou/gqlgenc         | ✅      | ❌            |❌          |
 | https://github.com/hasura/go-graphql-client | ❌      | ✅            |❌          |
-| ✨[https://github.com/infiotinc/gqlgenc](https://github.com/infiotinc/gqlgenc)✨| ✅ | ✅ | ✅ |
+| ✨[https://github.com/DENKweit/gqlgenc](https://github.com/DENKweit/gqlgenc)✨| ✅ | ✅ | ✅ |
 
 ## GQL Client
 
@@ -30,8 +30,8 @@ package main
 
 import (
     "context"
-    "github.com/infiotinc/gqlgenc/client"
-    "github.com/infiotinc/gqlgenc/client/transport"
+    "github.com/DENKweit/gqlgenc/client"
+    "github.com/DENKweit/gqlgenc/client/transport"
 )
 
 func main() {
@@ -129,7 +129,7 @@ query GetRoom {
 }
 ```
 
-Run `go run github.com/infiotinc/gqlgenc`
+Run `go run github.com/DENKweit/gqlgenc`
 
 Enjoy:
 ```go
@@ -160,7 +160,7 @@ cli.Use(&extensions.APQ{})
 ```yaml
 models:
   Upload:
-    model: github.com/infiotinc/gqlgenc/client/transport.Upload
+    model: github.com/DENKweit/gqlgenc/client/transport.Upload
 ```
 
 - Enjoy!

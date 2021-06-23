@@ -6,8 +6,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/infiotinc/gqlgenc/config"
-	"github.com/infiotinc/gqlgenc/modelgen"
+	"github.com/DENKweit/gqlgenc/config"
+	"github.com/DENKweit/gqlgenc/modelgen"
 
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/plugin"

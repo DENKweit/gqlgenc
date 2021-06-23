@@ -12,7 +12,7 @@ models:
   GetRoomCustom:
     model: example/somelib.CustomRoom
   Upload:
-    model: github.com/infiotinc/gqlgenc/client/transport.Upload
+    model: github.com/DENKweit/gqlgenc/client/transport.Upload
 schema:
   - schema.graphql
 query:
