@@ -57,7 +57,7 @@ type SourceGenerator struct {
 
 func (r *SourceGenerator) RegisterGenType(name string, typ *Type) {
 	if gt := r.GetGenType(name); gt != nil {
-		panic(name + ": gen type already defined")
+		return
 	}
 
 	r.genTypes = append(r.genTypes, genType{
