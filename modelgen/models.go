@@ -80,6 +80,7 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 	}
 
 	knownOptionalTypes := map[string]bool{}
+	knownEnumTypes := map[string][]*EnumValue{}
 
 	for _, schemaType := range cfg.Schema.Types {
 		if cfg.Models.UserDefined(schemaType.Name) {
@@ -93,6 +94,7 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 			}
 
 			b.Interfaces = append(b.Interfaces, it)
+
 		case ast.Object, ast.InputObject:
 			if schemaType == cfg.Schema.Query || schemaType == cfg.Schema.Mutation || schemaType == cfg.Schema.Subscription {
 				continue
@@ -103,6 +105,11 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 			}
 			for _, implementor := range cfg.Schema.GetImplements(schemaType) {
 				it.Implements = append(it.Implements, implementor.Name)
+				typeNameEnumName := fmt.Sprintf("%sTypes", implementor.Name)
+
+				knownEnumTypes[typeNameEnumName] = append(knownEnumTypes[typeNameEnumName], &EnumValue{
+					Name: schemaType.Name,
+				})
 			}
 
 			for _, field := range schemaType.Fields {
@@ -225,6 +232,22 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 			b.Scalars = append(b.Scalars, schemaType.Name)
 		}
 	}
+
+	for enumName, enumValues := range knownEnumTypes {
+		it := &Enum{
+			Name: enumName,
+		}
+
+		for _, v := range enumValues {
+			it.Values = append(it.Values, &EnumValue{
+				Name:        v.Name,
+				Description: v.Description,
+			})
+		}
+
+		b.Enums = append(b.Enums, it)
+	}
+
 	sort.Slice(b.Enums, func(i, j int) bool { return b.Enums[i].Name < b.Enums[j].Name })
 	sort.Slice(b.Models, func(i, j int) bool { return b.Models[i].Name < b.Models[j].Name })
 	sort.Slice(b.Interfaces, func(i, j int) bool { return b.Interfaces[i].Name < b.Interfaces[j].Name })

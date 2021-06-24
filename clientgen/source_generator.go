@@ -96,14 +96,18 @@ func NewSourceGenerator(cfg *config.Config, client config.PackageConfig) *Source
 func (r *SourceGenerator) NewResponseFields(prefix string, selectionSet *ast.SelectionSet) ResponseFieldList {
 L:
 	for _, field := range *selectionSet {
-		switch field.(type) {
+		switch f := field.(type) {
 		case *ast.InlineFragment:
+			typeName := "String"
+			if f.ObjectDefinition.Kind == ast.Interface || f.ObjectDefinition.Kind == ast.Union {
+				typeName = fmt.Sprintf("%sTypes", f.ObjectDefinition.Name)
+			}
 			*selectionSet = append(ast.SelectionSet{&ast.Field{
 				Name:  "__typename",
 				Alias: "__typename",
 				Definition: &ast.FieldDefinition{
 					Name: "Typename",
-					Type: ast.NonNullNamedType("String", nil),
+					Type: ast.NonNullNamedType(typeName, nil),
 					Arguments: ast.ArgumentDefinitionList{
 						{Name: "name", Type: ast.NonNullNamedType("String", nil)},
 					},
