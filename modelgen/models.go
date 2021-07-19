@@ -172,6 +172,32 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 				tag := `json:"` + field.Name + `"`
 				if schemaType.Kind == ast.InputObject {
 					switch typ.(type) {
+					case *types.Slice:
+						optionalTypeName := fmt.Sprintf("Optional%sSlice", field.Type.Name())
+						tag = `json:"` + field.Name + `,omitempty"`
+						optionalTypeValueType := typ
+						typ = types.NewPointer(types.NewNamed(
+							types.NewTypeName(0, cfg.Model.Pkg(), templates.ToGo(optionalTypeName), nil),
+							types.NewStruct(nil, nil),
+							nil,
+						))
+						if _, ok := knownOptionalTypes[optionalTypeName]; !ok {
+
+							it := &Object{
+								Name:        optionalTypeName,
+								Description: field.Description,
+								Fields: []*Field{{
+									Name:        "Value",
+									Description: "",
+									Type:        optionalTypeValueType,
+									Tag:         `json:"-"`,
+								}},
+								IsOptional: true,
+							}
+
+							b.Models = append(b.Models, it)
+							knownOptionalTypes[optionalTypeName] = true
+						}
 					case *types.Pointer:
 						optionalTypeName := fmt.Sprintf("Optional%s", field.Type.Name())
 						tag = `json:"` + field.Name + `,omitempty"`
