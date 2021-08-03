@@ -170,7 +170,7 @@ func (m *Plugin) MutateConfig(cfg *config.Config) error {
 				typ = binder.CopyModifiersFromAst(field.Type, typ)
 
 				tag := `json:"` + field.Name + `"`
-				if schemaType.Kind == ast.InputObject {
+				if schemaType.Kind == ast.InputObject && !field.Type.NonNull {
 					switch typ.(type) {
 					case *types.Slice:
 						optionalTypeName := fmt.Sprintf("Optional%sSlice", field.Type.Name())
